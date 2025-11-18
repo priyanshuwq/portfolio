@@ -111,10 +111,8 @@ export function ProjectCard({
         "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full bg-card"
       }
     >
-      <Link
-        href={href || "#"}
-        className={cn("block cursor-pointer overflow-hidden", className)}
-      >
+      {/* Non-clickable image/video */}
+      <div className={cn("block cursor-default overflow-hidden", className)}>
         <div className="relative w-full aspect-video overflow-hidden bg-muted">
           {video && (
             <video
@@ -138,18 +136,22 @@ export function ProjectCard({
             />
           )}
         </div>
-      </Link>
+      </div>
       <CardHeader className="px-4 pt-4 pb-3">
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-semibold">{title}</CardTitle>
+          <div className="flex items-center justify-between gap-3">
+            <CardTitle className="text-lg font-semibold flex-1">{title}</CardTitle>
             {links && links.length > 0 && (
-              <div className="flex gap-2">
+              <div className="flex items-center gap-3 flex-shrink-0">
                 {links?.map((link, idx) => (
-                  <Link href={link?.href} key={idx} target="_blank">
-                    <div className="text-muted-foreground hover:text-foreground transition-colors">
-                      {link.icon}
-                    </div>
+                  <Link 
+                    href={link?.href} 
+                    key={idx} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.icon}
                   </Link>
                 ))}
               </div>

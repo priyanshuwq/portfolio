@@ -197,7 +197,7 @@ export const DATA = {
     // },
     {
       title: "Audora",
-      href: "https://audora.rocks",
+      // href: "https://audora.rocks",
       dates: "August 2025 - Present",
       active: true,
       description:
@@ -207,10 +207,8 @@ export const DATA = {
         "TypeScript",
         "JavaScript",
         "MongoDB",
-        "Cloudinary",
         "TailwindCSS",
         "Node.js",
-        "Shadcn UI",
         "clerk",
         "WebRTC",
         "Render",
@@ -230,42 +228,10 @@ export const DATA = {
       image: "",
       video: "/aod.mp4/",
     },
-    // {
-    //   title: "llm.report",
-    //   href: "https://llm.report",
-    //   dates: "April 2023 - September 2023",
-    //   active: true,
-    //   description:
-    //     "Developed an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts.",
-    //   technologies: [
-    //     "Next.js",
-    //     "Typescript",
-    //     "PostgreSQL",
-    //     "Prisma",
-    //     "TailwindCSS",
-    //     "Shadcn UI",
-    //     "Magic UI",
-    //     "Stripe",
-    //     "Cloudflare Workers",
-    //   ],
-      // links: [
-      //   {
-      //     type: "Website",
-      //     href: "https://llm.report",
-      //     icon: <Icons.globe className="size-3" />,
-      //   },
-    //     {
-    //       type: "Source",
-    //       href: "https://github.com/dillionverma/llm.report",
-    //       icon: <Icons.github className="size-3" />,
-    //     },
-    //   ],
-    //   image: "",
-    //   video: "https://cdn.llm.report/openai-demo.mp4",
-    // },
+
     {
       title: "VibeChat",
-      href: "https://chat.shekhr.dev",
+      // href: "https://chat.shekhr.dev",
       dates: "July 2025 - September 2025",
       active: true,
       description:
@@ -293,9 +259,8 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/vibechat.png",
-      video:
-        "",
+      image: "",
+      video: "/vc.mp4",
     },
   ],
   hackathons: [
