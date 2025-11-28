@@ -2,7 +2,6 @@ import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { ProjectCard } from "@/components/project-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { DATA } from "@/data/resume";
@@ -11,6 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import { Card } from "@/components/ui/card";
+import { GitHubContributions } from "@/components/github-contributions";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -115,6 +115,10 @@ const SkillIcon = ({ skill }: { skill: string }) => {
 };
 
 export default function Page() {
+  const githubUsername =
+    DATA.contact.social?.GitHub?.url?.split("github.com/")[1]?.replace(/\/.*/, "") ||
+    "priyanshuwq";
+
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-16">
       <section id="hero">
@@ -231,7 +235,7 @@ export default function Page() {
           {/* Buttons */}
           <BlurFade delay={BLUR_FADE_DELAY * 4}>
             <div className="flex gap-2 px-6 sm:px-0 mt-4 mb-6">
-              <Link href="/resume.pdf" target="_blank">
+              <Link href="/MyResume.pdf" target="_blank">
                 <Button variant="outline" size="sm" className="gap-2 h-9 text-sm">
                   <FileText className="size-3.5" />
                   Resume / CV
@@ -281,26 +285,6 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
-      <section id="skills">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-bold">Skills</h2>
-          </BlurFade>
-          <div className="flex flex-wrap gap-3">
-            {DATA.skills.map((skill, id) => (
-              <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
-                <div 
-                  className="group relative flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-muted via-muted/80 to-muted/60 hover:from-primary/10 hover:via-primary/5 hover:to-transparent transition-all duration-300 hover:scale-110 hover:shadow-lg" 
-                  title={skill}
-                >
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/0 via-white/5 to-white/10 dark:from-white/5 dark:via-white/0 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <SkillIcon skill={skill} />
-                </div>
-              </BlurFade>
-            ))}
-          </div>
-        </div>
-      </section>
       <section id="projects">
         <div className="space-y-12 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
@@ -324,6 +308,31 @@ export default function Page() {
                   video={project.video}
                   links={project.links}
                 />
+              </BlurFade>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section id="github">
+        <BlurFade delay={BLUR_FADE_DELAY * 13}>
+          <GitHubContributions username={githubUsername} />
+        </BlurFade>
+      </section>
+      <section id="skills">
+        <div className="flex min-h-0 flex-col gap-y-3">
+          <BlurFade delay={BLUR_FADE_DELAY * 14}>
+            <h2 className="text-xl font-bold">Skills</h2>
+          </BlurFade>
+          <div className="flex flex-wrap gap-3">
+            {DATA.skills.map((skill, id) => (
+              <BlurFade key={skill} delay={BLUR_FADE_DELAY * 15 + id * 0.05}>
+                <div
+                  className="group relative flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-muted via-muted/80 to-muted/60 hover:from-primary/10 hover:via-primary/5 hover:to-transparent transition-all duration-300 hover:scale-110 hover:shadow-lg"
+                  title={skill}
+                >
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/0 via-white/5 to-white/10 dark:from-white/5 dark:via-white/0 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <SkillIcon skill={skill} />
+                </div>
               </BlurFade>
             ))}
           </div>
