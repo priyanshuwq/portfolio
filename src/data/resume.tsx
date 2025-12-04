@@ -168,4 +168,11 @@ export const DATA = {
     },
   ],
   hackathons: [],
+  spotify: {
+    // Get your playlist ID from Spotify:
+    // 1. Open Spotify and go to your playlist
+    // 2. Click "..." → Share → Copy link
+    // 3. Extract the ID from: https://open.spotify.com/playlist/YOUR_PLAYLIST_ID
+    featuredPlaylistId: "37i9dQZF1DX5trt9i14X7j", // Default: Focus Flow playlist
+  },
 } as const;
