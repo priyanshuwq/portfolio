@@ -14,6 +14,7 @@ export const DATA = {
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
+    { href: "/projects", icon: HomeIcon, label: "Projects" },
   ],
   contact: {
     email: "priyanshuofficial2004@gmail.com",
@@ -74,8 +75,6 @@ export const DATA = {
         "TailwindCSS",
         "nodejs",
         "clerk",
-        "WebRTC",
-        "Render",
       ],
       links: [
         {
@@ -106,14 +105,12 @@ export const DATA = {
         "TailwindCSS",
         "Shadcn UI",
         "mongoDB",
-        "cloudinary",
         "socket.io",
-        "Render",
       ],
       links: [
         {
           type: "Website",
-          href: "https://llm.report",
+          href: "https://chat.shekhr.dev",
           icon: <Icons.globe className="size-5" />,
         },
         {
@@ -128,7 +125,7 @@ export const DATA = {
     {
       title: "Porsche-911",
       dates: "July 2025 - September 2025",
-      active: true,
+      active: false,
       description:
       "A website that showcase the porsche 911 car model with stunning visuals and interactive features.",
       technologies: [
@@ -136,24 +133,8 @@ export const DATA = {
         "Javascript",
         "nodejs",
         "TailwindCSS",
-        "Shadcn UI",
-        "mongoDB",
-        "cloudinary",
-        "socket.io",
-        "Render",
       ],
-      links: [
-        {
-          type: "Website",
-          href: "https://llm.report",
-          icon: <Icons.globe className="size-5" />,
-        },
-        {
-           type: "Source",
-          href: "https://github.com/priyanshuwq/Vibe-ChatApp",
-          icon: <Icons.github className="size-5" />,
-        },
-      ],
+      links: [],
       image: "",
       video: "",
     },
