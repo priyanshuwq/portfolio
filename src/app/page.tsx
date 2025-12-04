@@ -32,7 +32,7 @@ export default function Page() {
         <div className="mx-auto w-full max-w-2xl">
           {/* Banner Image with Overlay Text */}
           <BlurFade delay={BLUR_FADE_DELAY}>
-            <div className="relative w-full h-56 sm:h-64 md:h-72 overflow-hidden bg-muted">
+            <div className="relative w-full h-50 sm:h-60 md:h-70 overflow-hidden bg-muted">
               <Image
                 src="/Banner.jpeg"
                 alt="Profile Banner"
