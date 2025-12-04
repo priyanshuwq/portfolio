@@ -40,3 +40,7 @@ next-env.d.ts
 
 #files
 .github
+
+# scripts and documentation
+scripts/
+SPOTIFY_SETUP.md
