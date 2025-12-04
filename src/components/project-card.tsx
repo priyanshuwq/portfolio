@@ -158,11 +158,18 @@ export function ProjectCard({
             {title}
           </CardTitle>
           <div className="flex items-center gap-2 flex-shrink-0">
-            {active && (
+            {active ? (
               <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-sm">
                 <div className="size-1.5 rounded-full bg-emerald-500 animate-pulse shadow-lg shadow-emerald-500/50" />
                 <span className="text-[10px] font-semibold tracking-wide uppercase text-emerald-700 dark:text-emerald-400">
                   Live
+                </span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 backdrop-blur-sm">
+                <div className="size-1.5 rounded-full bg-orange-500 animate-pulse shadow-lg shadow-orange-500/50" />
+                <span className="text-[10px] font-semibold tracking-wide uppercase text-orange-700 dark:text-orange-400">
+                  Building
                 </span>
               </div>
             )}
