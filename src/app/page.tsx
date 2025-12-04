@@ -30,9 +30,9 @@ export default function Page() {
     <main className="flex flex-col min-h-[100dvh] space-y-16">
       <section id="hero">
         <div className="mx-auto w-full max-w-2xl">
-          {/* Banner Image - Touches navbar, full width */}
+          {/* Banner Image with Overlay Text */}
           <BlurFade delay={BLUR_FADE_DELAY}>
-            <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden rounded-2xl">
+            <div className="relative w-full h-56 sm:h-64 md:h-72 overflow-hidden bg-muted">
               <Image
                 src="/Banner.jpeg"
                 alt="Profile Banner"
@@ -40,45 +40,53 @@ export default function Page() {
                 className="object-cover"
                 priority
               />
-              {/* Additional dark overlay */}
-              <div className="absolute inset-0 bg-black/50" />
+              {/* Dark overlay */}
+              <div className="absolute inset-0 bg-black/40" />
+              
+              {/* Lock In Text Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <h2 className="text-5xl sm:text-6xl md:text-7xl font-serif font-light tracking-wide text-white/30 mix-blend-soft-light">
+                  Lock In
+                </h2>
+              </div>
             </div>
           </BlurFade>
 
-          {/* Profile Section - Social Media Style */}
-          <div className="relative px-0">
-            {/* Avatar and Info Container */}
-            <div className="flex items-end justify-between -mt-16 sm:-mt-20">
-              {/* Left Side - Avatar, Name, Designation */}
-              <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
-                <div className="flex flex-col">
-                  <Avatar className="size-24 sm:size-32 md:size-36 border-4 border-background shadow-xl ring-2 ring-border/50">
-                    <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                    <AvatarFallback>
-                      {DATA.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")
-                        .toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                  
-                  {/* Name and Designation below avatar */}
-                  <div className="mt-3 space-y-0.5">
-                    <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
-                      {DATA.name}
-                    </h1>
-                    <p className="text-sm sm:text-base text-muted-foreground">
-                      Full Stack Developer
-                    </p>
-                  </div>
+          {/* Profile Section */}
+          <div className="relative mx-auto w-full max-w-2xl px-4 sm:px-6">
+            {/* Avatar */}
+            <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
+              <div className="-mt-12 sm:-mt-16 mb-4">
+                <Avatar className="w-24 h-24 sm:w-32 sm:h-32 border-4 border-background shadow-xl">
+                  <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
+                  <AvatarFallback>
+                    {DATA.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")
+                      .toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+            </BlurFade>
+
+            {/* Name, Title, and Social Icons Row */}
+            <div className="flex items-start justify-between mb-6">
+              {/* Name and Title */}
+              <BlurFade delay={BLUR_FADE_DELAY * 2}>
+                <div className="space-y-0.5">
+                  <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
+                    {DATA.name}
+                  </h1>
+                  <p className="text-sm sm:text-base text-muted-foreground">
+                    FullStack Developer
+                  </p>
                 </div>
               </BlurFade>
 
-              {/* Right Side - Social Icons */}
-              <BlurFade delay={BLUR_FADE_DELAY * 2}>
-                <div className="flex flex-row gap-1 mb-1">
-                  {/* Social Media Icons */}
+              {/* Social Icons */}
+              <BlurFade delay={BLUR_FADE_DELAY * 2.5}>
+                <div className="flex flex-row gap-0 -mr-2">
                   {Object.entries(DATA.contact.social)
                     .filter(([_, social]) => social.navbar)
                     .map(([name, social]) => (
@@ -88,9 +96,9 @@ export default function Page() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Button variant="ghost" size="icon" className="!size-9 !rounded-md hover:bg-muted">
+                        <Button variant="ghost" size="icon" className="size-8 rounded-lg hover:bg-muted">
                           {React.createElement(social.icon, {
-                            className: "size-5",
+                            className: "size-4",
                           })}
                         </Button>
                       </Link>
@@ -100,9 +108,9 @@ export default function Page() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Button variant="ghost" size="icon" className="!size-9 !rounded-md hover:bg-muted">
+                    <Button variant="ghost" size="icon" className="size-8 rounded-lg hover:bg-muted">
                       {React.createElement(DATA.contact.social.email.icon, {
-                        className: "size-5",
+                        className: "size-4",
                       })}
                     </Button>
                   </Link>
@@ -110,9 +118,9 @@ export default function Page() {
               </BlurFade>
             </div>
 
-            {/* Introduction Section */}
+            {/* Introduction */}
             <BlurFade delay={BLUR_FADE_DELAY * 3}>
-              <div className="mt-6 space-y-4">
+              <div className="space-y-4">
                 <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   I turn ideas into interactive web experiences using{" "}
                   <Link
@@ -176,13 +184,13 @@ export default function Page() {
               <div className="flex flex-col gap-2 mt-6">
                 <div className="flex gap-2">
                   <Link href="/MyResume.pdf" target="_blank">
-                    <Button variant="outline" size="sm" className="gap-2 h-9 text-sm">
+                    <Button variant="outline" className="gap-2 h-9 text-sm">
                       <FileText className="size-3.5" />
                       Resume / CV
                     </Button>
                   </Link>
                   <Link href="#contact">
-                    <Button size="sm" className="gap-2 h-9 text-sm">
+                    <Button className="gap-2 h-9 text-sm">
                       <Send className="size-3.5" />
                       Contact
                     </Button>
@@ -202,7 +210,7 @@ export default function Page() {
             </div>
           </BlurFade>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
-            {DATA.projects.map((project, id) => (
+            {DATA.projects.slice(0, 4).map((project, id) => (
               <BlurFade
                 key={project.title}
                 delay={BLUR_FADE_DELAY * 12 + id * 0.05}
@@ -221,6 +229,27 @@ export default function Page() {
               </BlurFade>
             ))}
           </div>
+          <BlurFade delay={BLUR_FADE_DELAY * 13}>
+            <div className="flex justify-center mt-8">
+              <Link href="/projects">
+                <Button variant="outline" className="gap-2">
+                  Show all projects
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="size-4"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M2 10a.75.75 0 01.75-.75h12.59l-2.1-1.95a.75.75 0 111.02-1.1l3.5 3.25a.75.75 0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.1-1.95H2.75A.75.75 0 012 10z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </Button>
+              </Link>
+            </div>
+          </BlurFade>
         </div>
       </section>
       <section id="github">
@@ -356,6 +385,37 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="w-full py-12 mt-16 border-t">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6">
+          <BlurFade delay={BLUR_FADE_DELAY * 16}>
+            <div className="flex flex-col items-center gap-6">
+              {/* Visitor Stats */}
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-muted/50">
+                  <Icons.eye className="size-4" />
+                  <span>You are the <span className="font-semibold text-foreground">visitor</span></span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-muted/50">
+                  <Icons.activity className="size-4" />
+                  <span className="font-semibold text-foreground">total visits</span>
+                </div>
+              </div>
+
+              {/* Copyright */}
+              <div className="text-center space-y-1">
+                <p className="text-sm text-muted-foreground">
+                  Design & Developed by <span className="font-semibold text-foreground">{DATA.name}</span>
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  © {new Date().getFullYear()}. All rights reserved.
+                </p>
+              </div>
+            </div>
+          </BlurFade>
+        </div>
+      </footer>
     </main>
   );
 }
