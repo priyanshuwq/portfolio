@@ -7,6 +7,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Icons } from "@/components/icons";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -199,17 +205,22 @@ export function ProjectCard({
         {tags && tags.length > 0 && (
           <div>
             <p className="text-xs text-muted-foreground mb-2">Technologies</p>
-            <div className="flex flex-wrap gap-3">
-              {tags?.map((tag) => (
-                <div
-                  key={tag}
-                  className="flex items-center justify-center transition-all duration-300 hover:scale-110"
-                  title={tag}
-                >
-                  <TechIcon tech={tag} />
-                </div>
-              ))}
-            </div>
+            <TooltipProvider>
+              <div className="flex flex-wrap gap-3">
+                {tags?.map((tag) => (
+                  <Tooltip key={tag}>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center justify-center transition-all duration-300 hover:scale-110 cursor-pointer">
+                        <TechIcon tech={tag} />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-white text-black border border-gray-200 shadow-lg">
+                      <p className="font-medium">{tag}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+              </div>
+            </TooltipProvider>
           </div>
         )}
         {dates && (
