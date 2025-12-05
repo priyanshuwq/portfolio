@@ -1,39 +1,19 @@
-# Portfolio [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdillionverma%2Fportfolio)
+# Portfolio
 
-Built with next.js, [shadcn/ui](https://ui.shadcn.com/), and [magic ui](https://magicui.design/), deployed on Vercel.
+A minimal, modern portfolio built with Next.js, shadcn/ui, and Magic UI.
 
-# Features
+## Quick Start
 
-- Setup only takes a few minutes by editing the [single config file](./src/data/resume.tsx)
-- Built using Next.js 14, React, Typescript, Shadcn/UI, TailwindCSS, Framer Motion, Magic UI
-- Includes a blog
-- Responsive for different devices
-- Optimized for Next.js and Vercel
+```bash
+pnpm install
+pnpm dev
+```
 
-# Getting Started Locally
+Edit `src/data/resume.tsx` to customize your content.
 
-1. Clone this repository to your local machine:
+## Stack
 
-   ```bash
-   git clone https://github.com/dillionverma/portfolio
-   ```
-
-2. Move to the cloned directory
-
-   ```bash
-   cd portfolio
-   ```
-
-3. Install dependencies:
-
-   ```bash
-   pnpm install
-   ```
-
-4. Start the local Server:
-
-   ```bash
-   pnpm dev
-   ```
-
-5. Open the [Config file](./src/data/resume.tsx) and make changes
+- Next.js 14
+- TypeScript
+- TailwindCSS
+- Framer Motion
