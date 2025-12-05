@@ -1,4 +1,5 @@
 import { getNowPlaying, getRecentlyPlayed } from '@/lib/spotify';
+import { readCache, writeCache } from '@/lib/spotify-cache';
 import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
@@ -25,7 +26,7 @@ export async function GET() {
             
             console.log('✅ Recently played:', track.name, 'by', track.artists[0].name);
             
-            return NextResponse.json({
+            const trackData = {
               album: track.album.name,
               albumImageUrl: track.album.images[0].url,
               artist: track.artists.map((artist: any) => artist.name).join(', '),
@@ -35,14 +36,28 @@ export async function GET() {
               playedAt: recentData.items[0].played_at,
               progress: 0,
               duration: track.duration_ms,
-            });
+              cachedAt: Date.now(),
+            };
+            
+            // Cache this track server-side for all users
+            writeCache(trackData);
+            
+            return NextResponse.json(trackData);
           }
         }
       } catch (error) {
         console.error('Error fetching recently played:', error);
       }
       
-      console.log('❌ No recently played tracks found');
+      // No recently played tracks, try to return cached data
+      console.log('❌ No recently played tracks found, checking cache...');
+      const cached = readCache();
+      if (cached) {
+        console.log('✅ Returning cached track:', cached.title);
+        return NextResponse.json({ ...cached, isPlaying: false });
+      }
+      
+      console.log('❌ No cache available');
       return NextResponse.json({ isPlaying: false });
     }
 
@@ -51,6 +66,14 @@ export async function GET() {
 
     if (song.item === null) {
       console.log('❌ Song item is null');
+      
+      // Try to return cached data
+      const cached = readCache();
+      if (cached) {
+        console.log('✅ Returning cached track:', cached.title);
+        return NextResponse.json({ ...cached, isPlaying: false });
+      }
+      
       return NextResponse.json({ isPlaying: false });
     }
 
@@ -65,7 +88,7 @@ export async function GET() {
 
     console.log('✅ Successfully fetched:', title, 'by', artist);
 
-    return NextResponse.json({
+    const trackData = {
       album,
       albumImageUrl,
       artist,
@@ -74,9 +97,23 @@ export async function GET() {
       title,
       progress,
       duration,
-    });
+      cachedAt: Date.now(),
+    };
+    
+    // Always cache the current track
+    writeCache(trackData);
+
+    return NextResponse.json(trackData);
   } catch (error) {
     console.error('Error fetching Spotify data:', error);
+    
+    // On error, try to return cached data
+    const cached = readCache();
+    if (cached) {
+      console.log('✅ Error occurred, returning cached track:', cached.title);
+      return NextResponse.json({ ...cached, isPlaying: false });
+    }
+    
     return NextResponse.json({ isPlaying: false });
   }
 }
