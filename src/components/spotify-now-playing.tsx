@@ -22,60 +22,21 @@ export function SpotifyNowPlaying() {
   const [data, setData] = useState<SpotifyData | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentProgress, setCurrentProgress] = useState(0);
-  const [lastKnownTrack, setLastKnownTrack] = useState<SpotifyData | null>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
-
-  // Load from localStorage on mount once
-  useEffect(() => {
-    const stored = localStorage.getItem('lastSpotifyTrack');
-    if (stored) {
-      try {
-        const storedTrack = JSON.parse(stored);
-        setLastKnownTrack(storedTrack);
-        setData({ ...storedTrack, isPlaying: false });
-        setLoading(false);
-      } catch (e) {
-        console.error('Error parsing stored track', e);
-      }
-    }
-    setIsInitialized(true);
-  }, []);
 
   useEffect(() => {
-    if (!isInitialized) return;
-
     const fetchData = async () => {
       try {
         const res = await fetch("/api/spotify");
         const json = await res.json();
         
-        // If we have valid song data, update both current and last known track
-        if (json.title && json.albumImageUrl) {
-          setData(json);
-          setLastKnownTrack(json);
-          
-          // Save to localStorage for persistence across page reloads
-          localStorage.setItem('lastSpotifyTrack', JSON.stringify(json));
-          
-          if (json.progress !== undefined) {
-            setCurrentProgress(json.progress);
-          }
-        } else {
-          // No current data from API
-          if (lastKnownTrack) {
-            // Use cached track with isPlaying: false
-            setData({ ...lastKnownTrack, isPlaying: false });
-          } else {
-            // No cache available
-            setData(json);
-          }
+        // Always set the data from server (includes cached data)
+        setData(json);
+        
+        if (json.progress !== undefined) {
+          setCurrentProgress(json.progress);
         }
       } catch (error) {
         console.error("Error fetching Spotify data", error);
-        // On error, show last known track if available
-        if (lastKnownTrack) {
-          setData({ ...lastKnownTrack, isPlaying: false });
-        }
       } finally {
         setLoading(false);
       }
@@ -85,7 +46,7 @@ export function SpotifyNowPlaying() {
     const interval = setInterval(fetchData, 5000); // Poll every 5 seconds
 
     return () => clearInterval(interval);
-  }, [isInitialized, lastKnownTrack]);
+  }, []);
 
   // Update progress in real-time when playing
   useEffect(() => {
@@ -163,7 +124,6 @@ export function SpotifyNowPlaying() {
 
   const statusText = data.isPlaying ? "Now Playing" : "Last Played";
   const progressPercent = data.duration ? (currentProgress / data.duration) * 100 : 0;
-  const showProgress = data.isPlaying && data.duration; // Only show progress bar when playing
 
   return (
     <motion.div
@@ -205,23 +165,26 @@ export function SpotifyNowPlaying() {
           </div>
         </div>
         
-        {/* Progress Bar with Time - Only show when playing */}
-        {showProgress && (
+        {/* Progress Bar - Only visible when playing */}
+        {data.isPlaying && (
           <div className="flex flex-col gap-1">
             <div className="relative w-full h-1 bg-black/10 dark:bg-white/10 rounded-full overflow-visible group/progress">
               <div 
-                className="h-full bg-white dark:bg-white rounded-full transition-all duration-300 relative"
+                className="h-full bg-black dark:bg-white rounded-full transition-all duration-300 relative"
                 style={{ width: `${Math.min(progressPercent, 100)}%` }}
               >
-                {/* Progress Dot */}
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 size-3 bg-white dark:bg-white rounded-full shadow-md opacity-0 group-hover/progress:opacity-100 transition-opacity" />
+                {/* Progress Dot - Always visible, not just on hover */}
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 size-3 bg-black dark:bg-white rounded-full shadow-md" />
               </div>
             </div>
             
-            <div className="flex items-center justify-between text-[10px] text-muted-foreground/70">
-              <span>{data.duration ? formatTime(currentProgress) : '0:00'}</span>
-              <span>{data.duration ? formatTime(data.duration) : '0:00'}</span>
-            </div>
+            {/* Time display */}
+            {data.duration && (
+              <div className="flex items-center justify-between text-[10px] text-muted-foreground/70">
+                <span>{formatTime(currentProgress)}</span>
+                <span>{formatTime(data.duration)}</span>
+              </div>
+            )}
           </div>
         )}
       </Link>
