@@ -22,18 +22,60 @@ export function SpotifyNowPlaying() {
   const [data, setData] = useState<SpotifyData | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentProgress, setCurrentProgress] = useState(0);
+  const [lastKnownTrack, setLastKnownTrack] = useState<SpotifyData | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Load from localStorage on mount once
+  useEffect(() => {
+    const stored = localStorage.getItem('lastSpotifyTrack');
+    if (stored) {
+      try {
+        const storedTrack = JSON.parse(stored);
+        setLastKnownTrack(storedTrack);
+        setData({ ...storedTrack, isPlaying: false });
+        setLoading(false);
+      } catch (e) {
+        console.error('Error parsing stored track', e);
+      }
+    }
+    setIsInitialized(true);
+  }, []);
 
   useEffect(() => {
+    if (!isInitialized) return;
+
     const fetchData = async () => {
       try {
         const res = await fetch("/api/spotify");
         const json = await res.json();
-        setData(json);
-        if (json.progress !== undefined) {
-          setCurrentProgress(json.progress);
+        
+        // If we have valid song data, update both current and last known track
+        if (json.title && json.albumImageUrl) {
+          setData(json);
+          setLastKnownTrack(json);
+          
+          // Save to localStorage for persistence across page reloads
+          localStorage.setItem('lastSpotifyTrack', JSON.stringify(json));
+          
+          if (json.progress !== undefined) {
+            setCurrentProgress(json.progress);
+          }
+        } else {
+          // No current data from API
+          if (lastKnownTrack) {
+            // Use cached track with isPlaying: false
+            setData({ ...lastKnownTrack, isPlaying: false });
+          } else {
+            // No cache available
+            setData(json);
+          }
         }
       } catch (error) {
         console.error("Error fetching Spotify data", error);
+        // On error, show last known track if available
+        if (lastKnownTrack) {
+          setData({ ...lastKnownTrack, isPlaying: false });
+        }
       } finally {
         setLoading(false);
       }
@@ -43,7 +85,7 @@ export function SpotifyNowPlaying() {
     const interval = setInterval(fetchData, 5000); // Poll every 5 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isInitialized, lastKnownTrack]);
 
   // Update progress in real-time when playing
   useEffect(() => {
@@ -84,11 +126,20 @@ export function SpotifyNowPlaying() {
           <FaSpotify className="size-3 text-[#1DB954]" />
           <span className="font-medium">Loading...</span>
         </div>
+        <div className="p-4 rounded-xl bg-gradient-to-br from-black/5 via-black/5 to-black/10 dark:from-white/5 dark:via-white/5 dark:to-white/10 border border-black/10 dark:border-white/10 backdrop-blur-md shadow-lg">
+          <div className="flex items-center gap-4">
+            <div className="relative size-16 rounded-lg overflow-hidden shrink-0 bg-muted animate-pulse" />
+            <div className="flex flex-col gap-2 flex-1">
+              <div className="h-4 bg-muted rounded animate-pulse w-3/4" />
+              <div className="h-3 bg-muted rounded animate-pulse w-1/2" />
+            </div>
+          </div>
+        </div>
       </motion.div>
     );
   }
 
-  // Always show widget, even if no data
+  // If no song data at all, show placeholder
   if (!data?.title) {
     return (
       <motion.div
@@ -100,6 +151,11 @@ export function SpotifyNowPlaying() {
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <FaSpotify className="size-3 text-[#1DB954]" />
           <span className="font-medium">Not Playing</span>
+        </div>
+        <div className="p-4 rounded-xl bg-gradient-to-br from-black/5 via-black/5 to-black/10 dark:from-white/5 dark:via-white/5 dark:to-white/10 border border-black/10 dark:border-white/10 backdrop-blur-md shadow-lg">
+          <div className="flex items-center justify-center py-6 text-sm text-muted-foreground">
+            No recent activity
+          </div>
         </div>
       </motion.div>
     );
