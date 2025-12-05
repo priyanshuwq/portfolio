@@ -20,11 +20,11 @@ import React, { Suspense, lazy } from "react";
 import { Card } from "@/components/ui/card";
 import { SkillIcon } from "@/components/skill-icons";
 import { SpotifyNowPlaying } from "@/components/spotify-now-playing";
+import { ThreeFooter } from "@/components/three-footer";
 
 const GitHubContributions = lazy(() => 
   import("@/components/github-contributions").then(mod => ({ default: mod.GitHubContributions }))
 );
-
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
@@ -361,7 +361,7 @@ export default function Page() {
       </section>
       
       {/* Spotify Playlist */}
-      <section id="spotify">
+      {/* <section id="spotify">
         <div className="w-full py-1">
           <BlurFade delay={BLUR_FADE_DELAY * 17}>
             <h2 className="text-xl font-bold mb-4">Playlist</h2>
@@ -381,38 +381,10 @@ export default function Page() {
           </div>
           </BlurFade>
         </div>
-      </section>
+      </section> */}
 
-      {/* Footer */}
-      <footer className="w-full py-12 mt-16 border-t">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6">
-          <BlurFade delay={BLUR_FADE_DELAY * 16}>
-            <div className="flex flex-col items-center gap-6">
-              {/* Visitor Stats */}
-              <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-muted/50">
-                  <Icons.eye className="size-4" />
-                  <span>You are the <span className="font-semibold text-foreground">visitor</span></span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-muted/50">
-                  <Icons.activity className="size-4" />
-                  <span className="font-semibold text-foreground">total visits</span>
-                </div>
-              </div>
-
-              {/* Copyright */}
-              <div className="text-center space-y-1">
-                <p className="text-sm text-muted-foreground">
-                  Design & Developed by <span className="font-semibold text-foreground">{DATA.name}</span>
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  © {new Date().getFullYear()}. All rights reserved.
-                </p>
-              </div>
-            </div>
-          </BlurFade>
-        </div>
-      </footer>
+      {/* Three.js Animated Footer */}
+      <ThreeFooter />
     </main>
   );
 }
