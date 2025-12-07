@@ -319,7 +319,7 @@ export const Icons = {
   ),
   socketio: (props: IconProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" {...props}>
-      <g fill="#ffffffff" fillRule="evenodd">
+      <g fill="currentColor" fillRule="evenodd">
         <path
           d="M63.951.001C28.696.001.001 28.696.001 63.951s28.695 63.95 63.95 63.95 63.95-28.695 63.95-63.95S99.206.001 63.95.001zm0 10.679c29.484 0 53.272 23.787 53.272 53.271 0 29.485-23.788 53.272-53.272 53.272-29.484 0-53.272-23.787-53.272-53.272 0-29.484 23.788-53.271 53.272-53.271z"
           fillRule="nonzero"

@@ -167,7 +167,7 @@ export const DATA = {
         },
       ],
       image: "",
-      video: "",
+      video: "/Authentiscan.mp4",
     },
   ],
   hackathons: [],
