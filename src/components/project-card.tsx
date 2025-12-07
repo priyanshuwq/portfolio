@@ -164,41 +164,24 @@ export function ProjectCard({
       
       <CardHeader className="px-5 pt-5 pb-3 space-y-3">
         <div className="flex items-start justify-between gap-3">
-          <CardTitle className="text-xl font-bold flex-1 leading-tight tracking-tight group-hover:text-primary transition-colors duration-300">
+          <CardTitle className="text-xl font-bold leading-tight tracking-tight group-hover:text-primary transition-colors duration-300">
             {title}
           </CardTitle>
-          <div className="flex items-center gap-2 flex-shrink-0">
-            {active ? (
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-sm">
-                <div className="size-1.5 rounded-full bg-emerald-500 animate-pulse shadow-lg shadow-emerald-500/50" />
-                <span className="text-[10px] font-semibold tracking-wide uppercase text-emerald-700 dark:text-emerald-400">
-                  Live
-                </span>
-              </div>
-            ) : (
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 backdrop-blur-sm">
-                <div className="size-1.5 rounded-full bg-orange-500 animate-pulse shadow-lg shadow-orange-500/50" />
-                <span className="text-[10px] font-semibold tracking-wide uppercase text-orange-700 dark:text-orange-400">
-                  Building
-                </span>
-              </div>
-            )}
-            {links && links.length > 0 && (
-              <div className="flex items-center gap-1.5">
-                {links?.map((link, idx) => (
-                  <Link 
-                    href={link?.href} 
-                    key={idx} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
-                  >
-                    {link.icon}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+          {links && links.length > 0 && (
+            <div className="flex items-center gap-1.5 flex-shrink-0">
+              {links?.map((link, idx) => (
+                <Link 
+                  href={link?.href} 
+                  key={idx} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-200"
+                >
+                  {link.icon}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
         <Markdown className="prose prose-sm max-w-full text-pretty font-sans text-muted-foreground/90 dark:prose-invert line-clamp-3 leading-relaxed">
           {description}
@@ -210,7 +193,7 @@ export function ProjectCard({
           <div>
             <p className="text-xs text-muted-foreground mb-2">Technologies</p>
             <TooltipProvider>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2.5">
                 {tags?.map((tag) => (
                   <Tooltip key={tag}>
                     <TooltipTrigger asChild>
@@ -227,8 +210,29 @@ export function ProjectCard({
             </TooltipProvider>
           </div>
         )}
-        {dates && (
-          <div className="flex items-center gap-2 pt-2 border-t border-border/30">
+        
+        {/* Bottom section with status and View Details */}
+        <div className="flex items-center justify-between pt-3 border-t border-border/30">
+          <div className="flex items-center gap-2">
+            {active ? (
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                <div className="size-1.5 rounded-full bg-emerald-500 animate-pulse shadow-lg shadow-emerald-500/50" />
+                <span className="text-[10px] font-semibold tracking-wide uppercase text-emerald-700 dark:text-emerald-400">
+                  Live
+                </span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/20">
+                <div className="size-1.5 rounded-full bg-orange-500 animate-pulse shadow-lg shadow-orange-500/50" />
+                <span className="text-[10px] font-semibold tracking-wide uppercase text-orange-700 dark:text-orange-400">
+                  Building
+                </span>
+              </div>
+            )}
+          </div>
+          
+          <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 group/btn">
+            <span className="font-medium">View Details</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -237,16 +241,12 @@ export function ProjectCard({
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="size-3.5 text-muted-foreground/70"
+              className="size-4 transition-transform duration-200 group-hover/btn:translate-x-0.5"
             >
-              <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-              <line x1="16" x2="16" y1="2" y2="6" />
-              <line x1="8" x2="8" y1="2" y2="6" />
-              <line x1="3" x2="21" y1="10" y2="10" />
+              <path d="m9 18 6-6-6-6" />
             </svg>
-            <span className="text-xs text-muted-foreground/80 font-medium">{dates}</span>
-          </div>
-        )}
+          </button>
+        </div>
       </CardContent>
     </Card>
   );
