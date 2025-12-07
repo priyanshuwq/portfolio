@@ -105,8 +105,9 @@ export const DATA = {
         "nodejs",
         "TailwindCSS",
         "Shadcn UI",
-        "mongoDB",
         "socket.io",
+        "mongoDB",
+        "Cloudinary",
       ],
       links: [
         {

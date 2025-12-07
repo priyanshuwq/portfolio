@@ -66,7 +66,7 @@ const TechIcon = ({ tech }: { tech: string }) => {
     case "mongodb":
       return <Icons.mongodb {...iconProps} />;
     case "cloudinary":
-      return <Icons.cloudinary {...iconProps} />;
+      return <Icons.Cloudinary {...iconProps} />;
     case "clerk":
       return <Icons.clerk {...iconProps} />;
     case "webrtc":

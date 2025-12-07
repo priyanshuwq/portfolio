@@ -20,7 +20,7 @@ import React, { Suspense, lazy } from "react";
 import { Card } from "@/components/ui/card";
 import { SkillIcon } from "@/components/skill-icons";
 import { SpotifyNowPlaying } from "@/components/spotify-now-playing";
-import { ThreeFooter } from "@/components/three-footer";
+import { SimpleFooter } from "@/components/simple-footer";
 
 const GitHubContributions = lazy(() => 
   import("@/components/github-contributions").then(mod => ({ default: mod.GitHubContributions }))
@@ -45,6 +45,7 @@ export default function Page() {
                 src="/Banner.jpeg"
                 alt="Profile Banner"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover"
                 priority
               />
@@ -383,8 +384,8 @@ export default function Page() {
         </div>
       </section> */}
 
-      {/* Three.js Animated Footer */}
-      <ThreeFooter />
+      {/* Simple Footer */}
+      <SimpleFooter />
     </main>
   );
 }
