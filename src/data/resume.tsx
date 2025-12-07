@@ -66,7 +66,7 @@ export const DATA = {
       dates: "August 2025 - Present",
       active: true,
       description:
-      "A music-streaming platform built for real-time collaborative listening, with perfectly synchronized playback and live jam sessions with friends.",
+      "Real-time music streaming platform with synchronized playback and live jam sessions.",
       technologies: [
         "React",
         "TypeScript",
@@ -98,7 +98,7 @@ export const DATA = {
       dates: "July 2025 - September 2025",
       active: true,
       description:
-      "A real-time, Secure chat where each user can only access their own conversations, built with the MERN stack and featuring direct messaging, image sharing, GIF support.",
+      "Secure real-time chat application with end-to-end encryption. Features direct messaging and GIF support.",
       technologies: [
         "React",
         "Javascript",
@@ -126,7 +126,7 @@ export const DATA = {
     },
     {
       title: "Porsche-911",
-      dates: "July 2025 - September 2025",
+      dates: "",
       active: false,
       description:
       "A website that showcase the porsche 911 car model with stunning visuals and interactive features.",
@@ -146,7 +146,7 @@ export const DATA = {
       dates: "July 2025 - September 2025",
       active: true,
       description:
-      "A prototype of a modern, comprehensive certificate verification and issuance platform. AuthentiScan provides blockchain-powered certificate authentication with a beautiful, responsive interface.",
+      "A prototype of a modern, comprehensive certificate verification and issuance platform.",
       technologies: [
         "React",
         "Javascript",
@@ -171,11 +171,4 @@ export const DATA = {
     },
   ],
   hackathons: [],
-  spotify: {
-    // Get your playlist ID from Spotify:
-    // 1. Open Spotify and go to your playlist
-    // 2. Click "..." → Share → Copy link
-    // 3. Extract the ID from: https://open.spotify.com/playlist/YOUR_PLAYLIST_ID
-    featuredPlaylistId: "37i9dQZF1DX5trt9i14X7j", // Default: Focus Flow playlist
-  },
 } as const;
