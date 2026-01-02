@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { DATA } from "@/data/resume";
 import { Send } from "lucide-react";
+import { SimpleFooter } from "@/components/simple-footer";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -106,6 +107,7 @@ export default function ContactPage() {
           </div>
         </section>
       </div>
+      <SimpleFooter />
     </main>
   );
 }
