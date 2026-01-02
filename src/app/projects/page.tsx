@@ -4,6 +4,7 @@ import { ProjectCard } from "@/components/project-card";
 import BlurFade from "@/components/magicui/blur-fade";
 import { DATA } from "@/data/resume";
 import { useState } from "react";
+import { SimpleFooter } from "@/components/simple-footer";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -92,6 +93,7 @@ export default function ProjectsPage() {
                     video={project.video}
                     links={project.links}
                     active={project.active}
+                    slug={project.slug}
                   />
                 </BlurFade>
               ))}
@@ -124,6 +126,7 @@ export default function ProjectsPage() {
           </div>
         </BlurFade>
       </div>
+      <SimpleFooter />
     </main>
   );
 }
