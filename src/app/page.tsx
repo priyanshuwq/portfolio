@@ -21,6 +21,7 @@ import { Card } from "@/components/ui/card";
 import { SkillIcon } from "@/components/skill-icons";
 import { SpotifyNowPlaying } from "@/components/spotify-now-playing";
 import { SimpleFooter } from "@/components/simple-footer";
+import { useKeyboardShortcuts } from "@/components/command-menu";
 
 const GitHubContributions = lazy(() => 
   import("@/components/github-contributions").then(mod => ({ default: mod.GitHubContributions }))
@@ -33,6 +34,9 @@ export default function Page() {
     "priyanshuwq";
 
   const [githubTotal, setGithubTotal] = React.useState<number | null>(null);
+
+  // Enable keyboard shortcuts
+  useKeyboardShortcuts();
 
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-16">
@@ -227,9 +231,10 @@ export default function Page() {
         </div>
       </section>
       <section id="projects">
-        <div className="space-y-12 w-full py-12">
+        <div className="space-y-8 w-full py-8">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
-            <div className="flex flex-col items-start space-y-4">
+            <div className="flex flex-col items-start space-y-2">
+              <h3 className="text-sm font-medium text-muted-foreground">Featured</h3>
               <h2 className="text-3xl font-bold">Projects</h2>
             </div>
           </BlurFade>
@@ -249,12 +254,13 @@ export default function Page() {
                   video={project.video}
                   links={project.links}
                   active={project.active}
+                  slug={project.slug}
                 />
               </BlurFade>
             ))}
           </div>
           <BlurFade delay={BLUR_FADE_DELAY * 13}>
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-4">
               <Link href="/projects">
                 <Button variant="outline" className="gap-2">
                   Show all projects
@@ -279,7 +285,7 @@ export default function Page() {
 
       {/* About Section */}
       <section id="about">
-        <div className="space-y-8 w-full py-12">
+        <div className="space-y-8 w-full py-8">
           <BlurFade delay={BLUR_FADE_DELAY * 13.5}>
             <div className="space-y-2">
               <h3 className="text-sm font-medium text-muted-foreground">About</h3>
@@ -290,22 +296,30 @@ export default function Page() {
           <BlurFade delay={BLUR_FADE_DELAY * 14}>
             <div className="flex flex-col md:flex-row gap-8 items-start max-w-[800px] mx-auto">
               {/* Profile Image */}
-              <div className="shrink-0">
+              {/* <div className="shrink-0">
                 <div className="w-48 h-48 rounded-lg overflow-hidden bg-primary">
                   <Avatar className="w-full h-full rounded-lg">
                     <AvatarImage alt="Priyanshu Shekhar Singh" src={DATA.avatarUrl} className="object-cover" />
                     <AvatarFallback className="rounded-lg text-4xl">PSS</AvatarFallback>
                   </Avatar>
                 </div>
-              </div>
+              </div> */}
 
               {/* Info */}
               <div className="flex-1 space-y-4">
                 <div>
                   <h3 className="text-2xl font-bold mb-2">Priyanshu Shekhar Singh</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    I'm a Full Stack web developer and Open Source Contributor, I love building products to solve real-world problems. I'm specialized in building MVP's.
-                  </p>
+                  <div className="space-y-3 text-muted-foreground text-sm leading-relaxed">
+                    <p>
+                      I'm a Full Stack Web Developer and Open Source Contributor passionate about crafting exceptional digital experiences. With expertise in the MERN stack and modern frameworks like Next.js, I specialize in building scalable web applications that solve real-world problems.
+                    </p>
+                    <p>
+                      My journey in software development is driven by curiosity and a love for learning. I thrive on tackling complex challenges, from implementing real-time features with WebRTC and Socket.io to creating immersive 3D experiences with Three.js. Each project is an opportunity to push boundaries and deliver impactful solutions.
+                    </p>
+                    <p>
+                      When I'm not coding, you'll find me contributing to open source projects, exploring new technologies, or sharing knowledge with the developer community. I believe in writing clean, maintainable code and building products that make a difference.
+                    </p>
+                  </div>
                 </div>
 
                 {/* Skills */}
@@ -335,7 +349,7 @@ export default function Page() {
       </section>
 
       <section id="github">
-        <div className="space-y-3 w-full py-1">
+        <div className="space-y-3 w-full py-8">
           <BlurFade delay={BLUR_FADE_DELAY * 15}>
             <div className="space-y-1">
               <div>
@@ -385,7 +399,7 @@ export default function Page() {
       </section> */}
 
       {/* Simple Footer */}
-      <SimpleFooter />
+      <SimpleFooter showGif={true} />
     </main>
   );
 }
