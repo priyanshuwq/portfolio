@@ -157,8 +157,6 @@ export function ProjectCard({
               priority={false}
             />
           )}
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
         </div>
       </div>
       
@@ -201,7 +199,7 @@ export function ProjectCard({
                         <TechIcon tech={tag} />
                       </div>
                     </TooltipTrigger>
-                    <TooltipContent className="bg-white text-black border border-gray-200 shadow-lg">
+                    <TooltipContent className="bg-background text-foreground border shadow-lg">
                       <p className="font-medium">{tag}</p>
                     </TooltipContent>
                   </Tooltip>
