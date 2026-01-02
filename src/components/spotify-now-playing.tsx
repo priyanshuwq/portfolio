@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaSpotify } from "react-icons/fa";
@@ -137,8 +136,8 @@ export function SpotifyNowPlaying() {
         <span className="font-medium">{statusText}</span>
       </div>
       
-      <Link
-        href={data.songUrl!}
+      <a
+        href={data.songUrl || '#'}
         target="_blank"
         rel="noopener noreferrer"
         className="group relative flex flex-col gap-3 p-4 rounded-xl bg-gradient-to-br from-black/5 via-black/5 to-black/10 dark:from-white/5 dark:via-white/5 dark:to-white/10 hover:from-black/10 hover:via-black/10 hover:to-black/15 dark:hover:from-white/10 dark:hover:via-white/10 dark:hover:to-white/15 transition-all duration-300 border border-black/10 dark:border-white/10 backdrop-blur-md shadow-lg hover:shadow-xl"
@@ -150,6 +149,8 @@ export function SpotifyNowPlaying() {
               src={data.albumImageUrl!}
               alt={data.album!}
               fill
+              sizes="64px"
+              loading="eager"
               className="object-cover"
             />
           </div>
@@ -187,7 +188,7 @@ export function SpotifyNowPlaying() {
             )}
           </div>
         )}
-      </Link>
+      </a>
     </motion.div>
   );
 }
