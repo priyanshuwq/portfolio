@@ -36,8 +36,10 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Command Menu */}
-          <CommandMenu />
+          {/* Command Menu - Hidden on mobile */}
+          <div className="hidden sm:block">
+            <CommandMenu />
+          </div>
 
           {/* Theme Toggle */}
           <ThemeToggleButton />
