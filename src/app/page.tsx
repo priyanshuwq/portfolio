@@ -39,7 +39,7 @@ export default function Page() {
   useKeyboardShortcuts();
 
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-16">
+    <main className="flex flex-col min-h-[100dvh] space-y-16 pt-8 sm:pt-0">
       <section id="hero">
         <div className="mx-auto w-full max-w-2xl">
           {/* Banner Image with Overlay Text - Hidden on mobile */}
@@ -56,9 +56,9 @@ export default function Page() {
               {/* Dark overlay */}
               <div className="absolute inset-0 bg-black/40" />
               
-              {/* Lock In Text Overlay */}
+              {/* Lock In Text Overlay with improved styling */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <h2 className="text-4xl sm:text-6xl md:text-7xl font-serif font-light tracking-wide text-white/30 mix-blend-soft-light">
+                <h2 className="text-4xl sm:text-6xl md:text-7xl font-serif font-light tracking-[0.2em] text-white/40 mix-blend-overlay backdrop-blur-[1px]">
                   Lock In
                 </h2>
               </div>
@@ -148,7 +148,7 @@ export default function Page() {
 
             {/* Introduction */}
             <BlurFade delay={BLUR_FADE_DELAY * 3}>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   I turn ideas into interactive web experiences using{" "}
                   <Link
@@ -224,10 +224,14 @@ export default function Page() {
                     </Button>
                   </Link>
                 </div>
-                <SpotifyNowPlaying />
               </div>
             </BlurFade>
           </div>
+
+        {/* Spotify Now Playing - Full Width */}
+          <BlurFade delay={BLUR_FADE_DELAY * 4.5}>
+            <SpotifyNowPlaying />
+          </BlurFade>
         </div>
       </section>
       <section id="projects">
