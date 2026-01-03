@@ -141,7 +141,18 @@ export const DATA = {
         "Node.js",
         "TailwindCSS",
       ],
-      links: [],
+      links: [
+        {
+          type: "Website",
+          href: "https://porschegt.vercel.app",
+          icon: <Icons.globe className="size-5" />,
+        },
+        {
+           type: "Source",
+          href: "#",
+          icon: <Icons.github className="size-5" />,
+        },
+      ],
       image: "",
       video: "/Porsche911.mp4",
     },
