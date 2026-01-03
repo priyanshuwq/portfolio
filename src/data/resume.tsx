@@ -64,7 +64,7 @@ export const DATA = {
     {
       slug: "audora",
       title: "Audora",
-      dates: "August 2025 - November 2025",
+      dates: "October 2025 - November 2025",
       active: true,
       description:
       "Real-time music streaming platform with synchronized playback and live jam sessions.",
@@ -97,7 +97,7 @@ export const DATA = {
     {
       slug: "vibechat",
       title: "VibeChat",
-      dates: "July 2025 - September 2025",
+      dates: "August 2025 - September 2025",
       active: true,
       description:
       "Secure real-time chat application with end-to-end encryption. Features direct messaging and GIF support.",
@@ -129,7 +129,7 @@ export const DATA = {
     {
       slug: "porsche-911",
       title: "Porsche-911",
-      dates: "",
+      dates: "December 2024 - Ongoing",
       active: false,
       status: "Building",
       description:
@@ -148,7 +148,7 @@ export const DATA = {
     {
       slug: "authentiscan",
       title: "Authentiscan",
-      dates: "July 2025 - September 2025",
+      dates: "September2025 - September 2025",
       active: true,
       description:
       "A prototype of a modern, comprehensive certificate verification and issuance platform.",
