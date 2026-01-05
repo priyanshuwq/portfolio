@@ -10,21 +10,21 @@ const BLUR_FADE_DELAY = 0.04;
 
 export default function ContactPage() {
   return (
-    <main className="flex flex-col min-h-[100dvh] pt-14 sm:pt-16">
-        <section id="contact">
-          <div className="flex flex-col gap-4 w-full">
-            <BlurFade delay={BLUR_FADE_DELAY}>
-              <div className="space-y-3">
-                <h2 className="text-3xl font-bold">Contact</h2>
-                <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Get in touch with me. I will get back to you as soon as possible.
-                </p>
-              </div>
-            </BlurFade>
+    <main className="flex flex-col min-h-[100dvh] space-y-10">
+      <section id="contact" className="mx-auto w-full max-w-2xl px-6 py-12 sm:py-24">
+        <div className="flex flex-col gap-8 w-full">
+          <BlurFade delay={BLUR_FADE_DELAY}>
+            <div className="space-y-3 text-center">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">Contact</h1>
+              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                Get in touch with me. I will get back to you as soon as possible.
+              </p>
+            </div>
+          </BlurFade>
             
             <BlurFade delay={BLUR_FADE_DELAY * 2}>
               <div className="border-t border-border pt-8 mt-4">
-                <div className="space-y-3 mb-6">
+                <div className="space-y-3 mb-6 text-center">
                   <h3 className="text-xl font-bold">Send me a message</h3>
                   <p className="text-sm text-muted-foreground">
                     Fill out the form below and I will get back to you as soon as possible.
@@ -104,6 +104,6 @@ export default function ContactPage() {
             </BlurFade>
           </div>
         </section>
-    </main>
+      </main>
   );
 }
