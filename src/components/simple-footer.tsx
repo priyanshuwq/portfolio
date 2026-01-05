@@ -7,7 +7,7 @@ export function SimpleFooter() {
   return (
     <footer className="mt-auto">
       <div className="mx-auto w-full max-w-2xl px-6">
-        <div className="border-t pt-6 pb-6">
+        <div className="pt-6 pb-6">
           <div className="flex flex-col items-center gap-3">
           
           {/* Footer Text */}
