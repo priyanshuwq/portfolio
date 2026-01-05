@@ -42,12 +42,14 @@ export async function GET() {
         // Silent fallback to cache
       }
       
+      const cached = readCache();
       return NextResponse.json(cached || { isPlaying: false });
     }
 
     const song = await response.json();
 
     if (!song.item) {
+      const cached = readCache();
       return NextResponse.json(cached || { isPlaying: false });
     }
 
@@ -67,6 +69,7 @@ export async function GET() {
     return NextResponse.json(trackData);
   } catch (error) {
     // Return cached data on any error
+    const cached = readCache();
     if (cached) {
       return NextResponse.json({ ...cached, isPlaying: false });
     }
