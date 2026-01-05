@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import { useEffect, useMemo, useState } from "react";
 import type { Activity } from "react-activity-calendar";
+import "react-activity-calendar/tooltips.css";
 
 const ActivityCalendar = dynamic(
   () => import("react-activity-calendar").then((mod) => mod.ActivityCalendar),
@@ -75,6 +76,12 @@ export function GitHubContributions({ username, className, onTotalLoad }: GitHub
   const [total, setTotal] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -106,7 +113,7 @@ export function GitHubContributions({ username, className, onTotalLoad }: GitHub
     const filteredDays = filterCommittedMonths(days);
     return mapToCalendarData(filteredDays);
   }, [days]);
-  const shouldShowCalendar = !isLoading && !error && calendarData.length > 0;
+  const shouldShowCalendar = !isLoading && !error && calendarData.length > 0 && mounted;
 
   return (
     <section className={className}>
@@ -117,14 +124,31 @@ export function GitHubContributions({ username, className, onTotalLoad }: GitHub
             .react-activity-calendar__scroll-container {
               overflow: visible !important;
             }
-            .react-activity-calendar__count {
-              display: none !important;
+            
+            /* Style the built-in tooltips to match social media icons */
+            .react-activity-calendar__tooltip {
+              background: white !important;
+              color: black !important;
+              border: 1px solid rgb(229, 231, 235) !important;
+              box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+              border-radius: 0.5rem !important;
+              padding: 0.5rem 0.75rem !important;
+              font-size: 0.875rem !important;
+              line-height: 1.25rem !important;
+            }
+            
+            .dark .react-activity-calendar__tooltip {
+              background: white !important;
+              color: black !important;
+              border-color: rgb(229, 231, 235) !important;
             }
             
             /* Make calendar responsive to fit in container */
             .react-activity-calendar {
               max-width: 100%;
             }
+            
+
             
             /* Mobile & Tablet: enable horizontal scroll, hide scrollbar */
             @media (max-width: 1024px) {
@@ -177,7 +201,7 @@ export function GitHubContributions({ username, className, onTotalLoad }: GitHub
 
           {shouldShowCalendar && (
             <motion.div
-              className="w-full p-4 overflow-hidden"
+              className="w-full p-4"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35 }}
@@ -198,6 +222,19 @@ export function GitHubContributions({ username, className, onTotalLoad }: GitHub
                   labels={{
                     totalCount: "Total contributions in the last year",
                     legend: { less: "Less", more: "More" },
+                  }}
+                  tooltips={{
+                    activity: {
+                      text: (activity) => {
+                        const date = new Date(activity.date);
+                        const formattedDate = date.toLocaleDateString('en-US', { 
+                          month: 'short', 
+                          day: 'numeric', 
+                          year: 'numeric' 
+                        });
+                        return `${activity.count} ${activity.count === 1 ? 'contribution' : 'contributions'} on ${formattedDate}`;
+                      },
+                    },
                   }}
                 />
               </div>
