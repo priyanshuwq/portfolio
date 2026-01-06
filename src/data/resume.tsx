@@ -159,7 +159,7 @@ export const DATA = {
     {
       slug: "authentiscan",
       title: "Authentiscan",
-      dates: "September2025 - September 2025",
+      dates: "September 2025",
       active: true,
       description:
       "A prototype of a modern, comprehensive certificate verification and issuance platform.",
@@ -182,8 +182,8 @@ export const DATA = {
           icon: <Icons.github className="size-5" />,
         },
       ],
-      image: "/authentiscan.png",
-      video: "",
+      image: "",
+      video: "/Authentiscan.mp4",
     },
   ],
   hackathons: [],
