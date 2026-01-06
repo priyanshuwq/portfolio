@@ -166,19 +166,27 @@ export function ProjectCard({
             {title}
           </CardTitle>
           {links && links.length > 0 && (
-            <div className="flex items-center gap-1.5 flex-shrink-0">
-              {links?.map((link, idx) => (
-                <Link 
-                  href={link?.href} 
-                  key={idx} 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-200"
-                >
-                  {link.icon}
-                </Link>
-              ))}
-            </div>
+            <TooltipProvider>
+              <div className="flex items-center gap-1.5 flex-shrink-0">
+                {links?.map((link, idx) => (
+                  <Tooltip key={idx}>
+                    <TooltipTrigger asChild>
+                      <Link 
+                        href={link?.href} 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-200"
+                      >
+                        {link.icon}
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-background text-foreground border shadow-lg">
+                      <p className="font-medium">{link.type}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+              </div>
+            </TooltipProvider>
           )}
         </div>
         <Markdown className="prose prose-sm max-w-full text-pretty font-sans text-muted-foreground/90 dark:prose-invert line-clamp-3 leading-relaxed">
