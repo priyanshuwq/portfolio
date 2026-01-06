@@ -21,6 +21,7 @@ import React, { Suspense, lazy } from "react";
 import { Card } from "@/components/ui/card";
 import { SkillIcon } from "@/components/skill-icons";
 import { SpotifyNowPlaying } from "@/components/spotify-now-playing";
+import { AnimatedTitle } from "@/components/animated-title";
 
 const GitHubContributions = lazy(() => 
   import("@/components/github-contributions").then(mod => ({ default: mod.GitHubContributions }))
@@ -61,11 +62,11 @@ export default function Page() {
             </div>
           </BlurFade>
 
-          {/* Profile Section */}
-          <div className="relative mx-auto w-full max-w-2xl px-4 sm:px-6">
-            {/* Avatar */}
+          {/* Profile Section - Aligned to banner edges */}
+          <div className="relative mx-auto w-full max-w-2xl">
+            {/* Avatar - Aligned to left edge of banner */}
             <BlurFade delay={BLUR_FADE_DELAY * 1.5}>
-              <div className="-mt-8 sm:-mt-16 mb-4">
+              <div className="absolute left-0 -mt-8 sm:-mt-16 z-10">
                 <Avatar className="w-20 h-20 sm:w-32 sm:h-32 rounded-none drop-shadow-xl">
                   <AvatarImage alt={DATA.name} src={DATA.avatarUrl} className="object-contain" />
                   <AvatarFallback>
@@ -79,24 +80,22 @@ export default function Page() {
               </div>
             </BlurFade>
 
-            {/* Name, Title, and Social Icons Row */}
-            <div className="flex items-start justify-between mb-6">
+            {/* Name, Title, and Social Icons Row - Aligned to banner edges */}
+            <div className="flex items-start justify-between pt-14 sm:pt-20 mb-6">
               {/* Name and Title */}
               <BlurFade delay={BLUR_FADE_DELAY * 2}>
                 <div className="space-y-0.5">
                   <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
                     {DATA.name}
                   </h1>
-                  <p className="text-sm sm:text-base text-muted-foreground">
-                    FullStack Developer
-                  </p>
+                  <AnimatedTitle />
                 </div>
               </BlurFade>
 
-              {/* Social Icons */}
+              {/* Social Icons - Aligned to right edge of banner */}
               <BlurFade delay={BLUR_FADE_DELAY * 2.5}>
                 <TooltipProvider>
-                  <div className="flex flex-row gap-0 -mr-2">
+                  <div className="flex flex-row gap-0">
                     {Object.entries(DATA.contact.social)
                       .filter(([_, social]) => social.navbar)
                       .map(([name, social]) => (
@@ -142,7 +141,7 @@ export default function Page() {
               </BlurFade>
             </div>
 
-            {/* Introduction */}
+            {/* Introduction - Aligned to banner edges */}
             <BlurFade delay={BLUR_FADE_DELAY * 3}>
               <div className="space-y-6">
                 <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
