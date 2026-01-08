@@ -134,7 +134,7 @@ export default async function ProjectPage({
         </BlurFade>
 
         {/* Project Media */}
-        {(project.video || project.image) && (
+        {(project.video || (project as any).image) && (
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
             <div className="relative w-full aspect-video rounded-lg overflow-hidden border bg-card">
               {project.video ? (
@@ -146,9 +146,9 @@ export default async function ProjectPage({
                   playsInline
                   className="object-cover w-full h-full"
                 />
-              ) : project.image ? (
+              ) : (project as any).image ? (
                 <Image
-                  src={project.image}
+                  src={(project as any).image}
                   alt={project.title}
                   fill
                   className="object-cover"
