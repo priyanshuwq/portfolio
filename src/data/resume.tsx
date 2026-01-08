@@ -3,6 +3,12 @@ import { HomeIcon } from "lucide-react";
 
 export const DATA = {
   name: "Priyanshu",
+  initials: "P",
+  url: "https://shekhr.dev",
+  location: "India",
+  locationLink: "https://www.google.com/maps/place/india",
+  description: "FullStack Developer specializing in React, Next.js, and TypeScript. Building interactive web experiences with modern technologies.",
+  summary: "I turn ideas into interactive web experiences using React, Next.js, and TypeScript. I love playing with animations using GSAP and Three.js. Always curious, always building.",
   avatarUrl: "./profile.png",
   skills: [
     "React",
