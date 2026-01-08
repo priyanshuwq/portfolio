@@ -149,7 +149,7 @@ export default async function ProjectPage({
               ) : (project as any).image ? (
                 <Image
                   src={(project as any).image}
-                  alt={project.title}
+                  alt={(project as any).title}
                   fill
                   className="object-cover"
                 />
