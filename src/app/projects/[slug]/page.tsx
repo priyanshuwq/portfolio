@@ -77,21 +77,6 @@ export default async function ProjectPage({
         {/* Project Hero */}
         <BlurFade delay={BLUR_FADE_DELAY * 2}>
           <div className="space-y-4">
-            {/* Status Badge */}
-            {(project as any).status ? (
-              <Badge variant="outline" className={(project as any).status === 'Building' ? 'border-yellow-500 text-yellow-500' : ''}>
-                {(project as any).status}
-              </Badge>
-            ) : project.active ? (
-              <Badge variant="outline" className="border-green-500 text-green-500">
-                {project.dates.toLowerCase().includes('present') ? 'Active' : 'Completed'}
-              </Badge>
-            ) : (
-              <Badge variant="outline">
-                Completed
-              </Badge>
-            )}
-
             {/* Title */}
             <h1 className="text-4xl font-bold">{project.title}</h1>
 
@@ -99,22 +84,38 @@ export default async function ProjectPage({
             <p className="text-lg text-muted-foreground">{project.description}</p>
 
             {/* Project Metadata */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-              <div>
-                <p className="text-sm text-muted-foreground">Timeline</p>
-                <p className="font-medium">{project.dates || "Ongoing"}</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Role</p>
-                <p className="font-medium">Full Stack</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Team</p>
-                <p className="font-medium">Solo</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Status</p>
-                <p className="font-medium">{(project as any).status || (project.active ? 'Active' : 'Completed')}</p>
+            <div className="border rounded-lg p-6 mt-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div>
+                  <p className="text-sm text-muted-foreground">Timeline</p>
+                  <p className="font-medium">{project.dates || "Ongoing"}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Role</p>
+                  <p className="font-medium">Full Stack</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Team</p>
+                  <p className="font-medium">Solo</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Status</p>
+                  <div className="mt-1">
+                    {(project as any).status === 'Building' ? (
+                      <Badge variant="outline" className="border-orange-500 text-orange-500">
+                        Building
+                      </Badge>
+                    ) : project.active || project.dates.toLowerCase().includes('present') ? (
+                      <Badge variant="outline" className="border-green-500 text-green-500">
+                        Active
+                      </Badge>
+                    ) : (
+                      <Badge variant="outline" className="border-green-500 text-green-500">
+                        Completed
+                      </Badge>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
