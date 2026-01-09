@@ -130,23 +130,6 @@ export function CommandMenu() {
             </CommandItem>
             <CommandItem
               onSelect={() => runCommand(() => {
-                const spotifySection = document.querySelector('#spotify');
-                if (spotifySection) {
-                  spotifySection.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  // Navigate to home if spotify section doesn't exist
-                  router.push('/#spotify');
-                }
-              })}
-            >
-              <Music className="mr-2 h-4 w-4" />
-              <span>View Spotify Activity</span>
-              <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
-                S
-              </kbd>
-            </CommandItem>
-            <CommandItem
-              onSelect={() => runCommand(() => {
                 const themeButton = document.querySelector('[aria-label="Toggle theme"]') as HTMLButtonElement;
                 if (themeButton) themeButton.click();
               })}
@@ -252,18 +235,6 @@ export function useKeyboardShortcuts() {
             e.preventDefault();
             const resumeLink = document.querySelector('a[href*="Resume"]') as HTMLAnchorElement;
             if (resumeLink) resumeLink.click();
-          }
-          break;
-        case "s":
-          if (!isTyping()) {
-            e.preventDefault();
-            const spotifySection = document.querySelector('#spotify');
-            if (spotifySection) {
-              spotifySection.scrollIntoView({ behavior: 'smooth' });
-            } else if (window.location.pathname !== '/') {
-              // Navigate to home first if spotify section doesn't exist
-              router.push('/#spotify');
-            }
           }
           break;
         case "t":
