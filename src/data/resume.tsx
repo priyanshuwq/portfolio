@@ -135,7 +135,7 @@ export const DATA = {
     {
       slug: "porsche-911",
       title: "Porsche-911",
-      dates: "December 2024 - Ongoing",
+      dates: "Ongoing",
       active: false,
       status: "Building",
       description:
