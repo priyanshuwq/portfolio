@@ -1,6 +1,6 @@
 import Navbar from "@/components/navbar";
 import { SimpleFooter } from "@/components/simple-footer";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
