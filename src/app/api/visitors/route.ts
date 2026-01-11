@@ -5,7 +5,8 @@ import path from 'path';
 export const dynamic = 'force-dynamic';
 
 const VISITORS_FILE = path.join(process.cwd(), 'visitors-count.json');
-const KV_STORAGE_URL = process.env.VISITOR_COUNT_API_URL; // External storage API URL
+const BIN_ID = process.env.JSONBIN_BIN_ID;
+const API_KEY = process.env.JSONBIN_API_KEY;
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
 interface VisitorData {
@@ -20,8 +21,8 @@ function readVisitorCountFromFile(): VisitorData {
       const data = fs.readFileSync(VISITORS_FILE, 'utf-8');
       return JSON.parse(data);
     }
-  } catch (error) {
-    console.error('[Visitors] File read error:', error);
+  } catch {
+    // Silent fail, return default
   }
   return { count: 0, lastUpdated: new Date().toISOString() };
 }
@@ -29,50 +30,51 @@ function readVisitorCountFromFile(): VisitorData {
 function writeVisitorCountToFile(data: VisitorData): void {
   try {
     fs.writeFileSync(VISITORS_FILE, JSON.stringify(data, null, 2));
-  } catch (error) {
-    console.error('[Visitors] File write error:', error);
+  } catch {
+    // Silent fail
   }
 }
 
-// External persistent storage (production)
+// JSONbin persistent storage (production)
 async function readVisitorCountFromKV(): Promise<VisitorData> {
   try {
-    if (!KV_STORAGE_URL) {
-      throw new Error('KV_STORAGE_URL not configured');
+    if (!BIN_ID || !API_KEY) {
+      throw new Error('JSONbin credentials not configured');
     }
-    
-    const response = await fetch(`${KV_STORAGE_URL}/get`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+
+    const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+      headers: {
+        'X-Master-Key': API_KEY,
+      },
       cache: 'no-store'
     });
-    
+
     if (response.ok) {
       const data = await response.json();
-      return data;
+      return data.record;
     }
-  } catch (error) {
-    console.error('[Visitors] KV read error:', error);
+  } catch {
+    // Fallback to file if KV fails
   }
-  
-  // Fallback to file if KV fails
+
   return readVisitorCountFromFile();
 }
 
 async function writeVisitorCountToKV(data: VisitorData): Promise<void> {
   try {
-    if (!KV_STORAGE_URL) {
-      throw new Error('KV_STORAGE_URL not configured');
+    if (!BIN_ID || !API_KEY) {
+      throw new Error('JSONbin credentials not configured');
     }
-    
-    await fetch(`${KV_STORAGE_URL}/set`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+
+    await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': API_KEY,
+      },
       body: JSON.stringify(data),
-      cache: 'no-store'
     });
-  } catch (error) {
-    console.error('[Visitors] KV write error:', error);
+  } catch {
     // Fallback to file if KV fails
     writeVisitorCountToFile(data);
   }
@@ -80,14 +82,14 @@ async function writeVisitorCountToKV(data: VisitorData): Promise<void> {
 
 // Unified interface
 async function readVisitorCount(): Promise<VisitorData> {
-  if (IS_PRODUCTION && KV_STORAGE_URL) {
+  if (IS_PRODUCTION && BIN_ID && API_KEY) {
     return await readVisitorCountFromKV();
   }
   return readVisitorCountFromFile();
 }
 
 async function writeVisitorCount(data: VisitorData): Promise<void> {
-  if (IS_PRODUCTION && KV_STORAGE_URL) {
+  if (IS_PRODUCTION && BIN_ID && API_KEY) {
     await writeVisitorCountToKV(data);
   } else {
     writeVisitorCountToFile(data);
