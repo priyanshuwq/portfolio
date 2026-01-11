@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Eye } from "lucide-react";
 
 export function VisitorCounter() {
   const [count, setCount] = useState<number | null>(null);
@@ -50,7 +49,6 @@ export function VisitorCounter() {
   if (isLoading || count === null) {
     return (
       <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-        <Eye className="size-3.5" />
         <span>Loading...</span>
       </div>
     );
@@ -58,7 +56,6 @@ export function VisitorCounter() {
 
   return (
     <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-      <Eye className="size-3.5" />
       <span>
         <span className="font-semibold text-foreground">{count.toLocaleString()}</span> visitors
       </span>
