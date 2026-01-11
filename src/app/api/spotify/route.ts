@@ -82,6 +82,12 @@ export async function GET() {
     return NextResponse.json(trackData);
   } catch (error) {
     console.error('[Spotify API] Error:', error);
+    
+    // If credentials are missing, return gracefully without spamming logs
+    if (error instanceof Error && error.message === 'SPOTIFY_CREDENTIALS_MISSING') {
+      return NextResponse.json({ isPlaying: false, error: 'Spotify not configured' });
+    }
+    
     // Return cached data but mark as not playing on error
     const cached = readCache();
     if (cached) {
