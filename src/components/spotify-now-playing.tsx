@@ -36,14 +36,12 @@ export function SpotifyNowPlaying() {
         
         setData(json);
         
-        // Reset progress when song stops or changes
+        // Always sync progress from API when song is playing
         if (!json.isPlaying) {
           setCurrentProgress(0);
-        } else if (songChanged && json.progress !== undefined) {
-          setCurrentProgress(json.progress);
-          setLastSyncTime(Date.now());
-        } else if (playbackChanged && json.isPlaying && json.progress !== undefined) {
-          // Song resumed - sync progress
+          setLastSyncTime(0);
+        } else if (json.progress !== undefined) {
+          // Sync progress for: song changes, playback changes, or regular updates
           setCurrentProgress(json.progress);
           setLastSyncTime(Date.now());
         }
@@ -55,20 +53,14 @@ export function SpotifyNowPlaying() {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 2000); // Poll every 2 seconds for quick response
+    const interval = setInterval(fetchData, 5000); // Poll every 5 seconds to sync
 
     return () => clearInterval(interval);
-  }, [data?.title, data?.isPlaying]);
+  }, []); // Empty dependencies - run once and keep polling
 
   // Update progress in real-time when playing (independent of data fetches)
   useEffect(() => {
     if (!data?.isPlaying || !data.duration) return;
-
-    // Initialize progress if not set
-    if (currentProgress === 0 && data.progress) {
-      setCurrentProgress(data.progress);
-      setLastSyncTime(Date.now());
-    }
     
     const progressInterval = setInterval(() => {
       setCurrentProgress((prev) => {
@@ -81,7 +73,7 @@ export function SpotifyNowPlaying() {
     }, 1000);
 
     return () => clearInterval(progressInterval);
-  }, [data?.isPlaying, data?.duration]); // Removed data?.progress from dependencies
+  }, [data?.isPlaying, data?.duration, currentProgress]); // Track when progress resets
 
   const formatTime = (ms: number) => {
     const totalSeconds = Math.floor(ms / 1000);
