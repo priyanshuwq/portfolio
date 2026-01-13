@@ -1,6 +1,6 @@
 # Preview
 
-![Portfolio Preview](./public/preview.png)
+![Portfolio Preview](./public/herosection/preview.png)
 
 A minimal, blazing-fast portfolio website built with modern web technologies.
 
