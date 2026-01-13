@@ -9,7 +9,7 @@ export const DATA = {
   locationLink: "https://www.google.com/maps/place/india",
   description: "I'm a FullStack Developer and Open Source Contributor. I love building Interactive web experiences and products to solve real-world problems. Explore my projects, experience and technical expertise.",
   summary: "I turn ideas into interactive web experiences using React, Next.js, and TypeScript. I love playing with animations using GSAP and Three.js. Always curious, always building.",
-  avatarUrl: "./profile.png",
+  avatarUrl: "/herosection/profile.png",
   skills: [
     "React",
     "Next.js",
@@ -97,7 +97,7 @@ export const DATA = {
         },
       ],
       image: "",
-      video: "/aod.mp4/",
+      video: "/audora/audora.mp4",
     },
 
     {
@@ -130,7 +130,7 @@ export const DATA = {
         },
       ],
       image: "",
-      video: "/vibechat.mp4",
+      video: "/vibechat/vibechat.mp4",
     },
     {
       slug: "porsche-911",
@@ -160,7 +160,7 @@ export const DATA = {
         },
       ],
       image: "",
-      video: "/Porsche911.mp4",
+      video: "/porsche911/Porsche911.mp4",
     },
     {
       slug: "authentiscan",
@@ -189,7 +189,7 @@ export const DATA = {
         },
       ],
       image: "",
-      video: "/Authentiscan.mp4",
+      video: "/authentiscan/Authentiscan.mp4",
     },
   ],
   blogs: [
