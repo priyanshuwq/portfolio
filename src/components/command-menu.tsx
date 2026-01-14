@@ -262,6 +262,12 @@ export function useKeyboardShortcuts() {
             window.open(DATA.contact.social.X.url, "_blank");
           }
           break;
+        case "d":
+          if (!isTyping()) {
+            e.preventDefault();
+            window.open(DATA.contact.social.Reddit.url, "_blank");
+          }
+          break;
       }
     };
 
